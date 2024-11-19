@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gowtham Portfolio</title>
+    <link rel="icon" type="image/jpg" href="assets/profile.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/cursor.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 1s ease-out forwards',
+                        'slide-down': 'slideDown 1s ease-out forwards',
+                        'scale-in': 'scaleIn 1.5s ease-out forwards',
+                        'rotate-in': 'rotateIn 1s ease-out forwards',
+                        'wave': 'wave 2.5s ease-in-out infinite',
+                        'matrix': 'matrix 20s linear infinite',
+                        'code-rain': 'codeRain linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(100px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-100px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        wave: {
+                            '0%': { transform: 'rotate(0.0deg)' },
+                            '10%': { transform: 'rotate(14.0deg)' },
+                            '20%': { transform: 'rotate(-8.0deg)' },
+                            '30%': { transform: 'rotate(14.0deg)' },
+                            '40%': { transform: 'rotate(-4.0deg)' },
+                            '50%': { transform: 'rotate(10.0deg)' },
+                            '60%': { transform: 'rotate(0.0deg)' },
+                            '100%': { transform: 'rotate(0.0deg)' },
+                        },
+                        codeRain: {
+                            '0%': {
+                                transform: 'translateY(-100%)',
+                            },
+                            '100%': {
+                                transform: 'translateY(100vh)',
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        .theme-toggle {
+            width: 44px;
+            height: 24px;
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            position: relative;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dark .theme-toggle {
+            background-color: #374151;
+        }
+
+        .theme-toggle-circle {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .theme-toggle-circle {
+            transform: translateX(20px);
+        }
+
+        .dark body {
+            background-color: #111827;
+            color: #f3f4f6;
+        }
+
+        .dark nav {
+            background-color: rgba(17, 24, 39, 0.9);
+            border-color: #1f2937;
+        }
+
+        .dark .text-gray-600 {
+            color: #9ca3af;
+        }
+
+        .code-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background-color: transparent;
+            overflow: hidden;
+        }
+
+        .code-column {
+            position: absolute;
+            width: max-content;
+            padding: 0 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            white-space: pre;
+            animation: codeRain linear infinite;
+            transform: translateY(-100%);
+            line-height: 1.4;
+        }
+
+        .code-column:nth-child(3n) {
+            color: #15803d;
+            opacity: 0.85;
+            animation-duration: 25s;
+        }
+
+        .code-column:nth-child(3n+1) {
+            color: #15803d;
+            opacity: 0.7;
+            animation-duration: 30s;
+        }
+
+        .code-column:nth-child(3n+2) {
+            color: #15803d;
+            opacity: 0.8;
+            animation-duration: 20s;
+        }
+
+        @keyframes codeRain {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .code-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background: radial-gradient(circle at center, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.95) 40%
+            );
+        }
+
+        .dark .code-bg {
+            background: radial-gradient(circle at center, 
+                transparent 0%, 
+                rgba(17, 24, 39, 0.95) 40%
+            );
+        }
+
+        /* Glitch effect for some code snippets */
+        .code-column.glitch {
+            animation: codeRain linear infinite, glitch 0.3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 
+                    0.05em 0 0 rgba(34, 197, 94, 0.75),
+                    -0.05em -0.025em 0 rgba(34, 197, 94, 0.75),
+                    -0.025em 0.05em 0 rgba(34, 197, 94, 0.75);
+            }
+            14% {
+                text-shadow: 
+                    0.05em 0 0 rgba(34, 197, 94, 0.75),
+                    -0.05em -0.025em 0 rgba(34, 197, 94, 0.75),
+                    -0.025em 0.05em 0 rgba(34, 197, 94, 0.75);
+            }
+            15% {
+                text-shadow: 
+                    -0.05em -0.025em 0 rgba(34, 197, 94, 0.75),
+                    0.025em 0.025em 0 rgba(34, 197, 94, 0.75),
+                    -0.05em -0.05em 0 rgba(34, 197, 94, 0.75);
+            }
+            49% {
+                text-shadow: 
+                    -0.05em -0.025em 0 rgba(34, 197, 94, 0.75),
+                    0.025em 0.025em 0 rgba(34, 197, 94, 0.75),
+                    -0.05em -0.05em 0 rgba(34, 197, 94, 0.75);
+            }
+            50% {
+                text-shadow: 
+                    0.025em 0.05em 0 rgba(34, 197, 94, 0.75),
+                    0.05em 0 0 rgba(34, 197, 94, 0.75),
+                    0 -0.05em 0 rgba(34, 197, 94, 0.75);
+            }
+            99% {
+                text-shadow: 
+                    0.025em 0.05em 0 rgba(34, 197, 94, 0.75),
+                    0.05em 0 0 rgba(34, 197, 94, 0.75),
+                    0 -0.05em 0 rgba(34, 197, 94, 0.75);
+            }
+            100% {
+                text-shadow: 
+                    -0.025em 0 0 rgba(34, 197, 94, 0.75),
+                    -0.025em -0.025em 0 rgba(34, 197, 94, 0.75),
+                    -0.025em -0.05em 0 rgba(34, 197, 94, 0.75);
+            }
+        }
+
+        .download-btn-modern,
+        .download-container,
+        .download-btn,
+        .download-text {
+            display: none;
+        }
+
+        .download-container {
+            position: relative;
+            margin-top: 1.5rem;
+        }
+
+        .subCircle {
+            pointer-events: none;
+        }
+
+        .strokeW {
+            animation: strokeW .6s forwards;
+        }
+
+        @keyframes strokeW {
+            to {
+                stroke-width: 1.16;
+            }
+        }
+
+        .cyber-button {
+            --button-border: 3px;
+            --button-background: #111827;
+            --button-glow: #22c55e;
+            --button-text: #22c55e;
+            --button-shadow-primary: #22c55e;
+            --button-shadow-secondary: #16a34a;
+            
+            position: relative;
+            padding: 1rem 2rem;
+            background: var(--button-background);
+            border: var(--button-border) solid var(--button-text);
+            color: var(--button-text);
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            overflow: hidden;
+        }
+
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--button-glow);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: -1;
+        }
+
+        .cyber-button::after {
+            content: '';
+            position: absolute;
+            top: calc(-1 * var(--button-border));
+            left: calc(-1 * var(--button-border));
+            width: calc(100% + var(--button-border) * 2);
+            height: calc(100% + var(--button-border) * 2);
+            background: transparent;
+            border: var(--button-border) solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .cyber-button:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 
+                4px 4px 0 0 var(--button-shadow-primary),
+                8px 8px 0 0 var(--button-shadow-secondary);
+        }
+
+        .cyber-button:hover::before {
+            opacity: 0.1;
+        }
+
+        .cyber-button:hover::after {
+            border-color: var(--button-glow);
+            transform: translate(4px, 4px);
+        }
+
+        .cyber-button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 
+                2px 2px 0 0 var(--button-shadow-primary),
+                4px 4px 0 0 var(--button-shadow-secondary);
+        }
+
+        .download-icon {
+            display: inline-block;
+            margin-left: 0.5rem;
+            transition: transform 0.2s ease;
+        }
+
+        .cyber-button:hover .download-icon {
+            transform: translateY(4px);
+        }
+
+        /* Dark mode adjustments */
+        .dark .cyber-button {
+            --button-background: #1f2937;
+            --button-glow: #16a34a;
+            --button-text: #16a34a;
+            --button-shadow-primary: #16a34a;
+            --button-shadow-secondary: #15803d;
+        }
+
+        /* Minimal Download Button */
+        .minimal-button {
+            position: relative;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: #22c55e;
+            border: 1px solid currentColor;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            overflow: hidden;
+        }
+
+        .minimal-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #22c55e;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .minimal-button:hover {
+            color: #ffffff;
+        }
+
+        .minimal-button:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .minimal-button.downloaded {
+            background: #22c55e;
+            color: #ffffff;
+            cursor: default;
+        }
+
+        .minimal-button.downloaded:hover::before {
+            transform: scaleX(0);
+        }
+
+        .minimal-button .icon {
+            transition: transform 0.2s ease;
+        }
+
+        .minimal-button:hover .icon {
+            transform: translateY(2px);
+        }
+
+        .minimal-button.downloaded .icon {
+            transform: none;
+        }
+
+        /* Dark mode adjustments */
+        .dark .minimal-button {
+            color: #16a34a;
+        }
+
+        .dark .minimal-button::before {
+            background: #16a34a;
+        }
+
+        .dark .minimal-button.downloaded {
+            background: #16a34a;
+        }
+
+        /* Custom Cursor */
+        .cursor-dot {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            background-color: #15803d;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+
+        .cursor-outline {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #15803d;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s ease;
+        }
+
+        .cursor-hover .cursor-dot {
+            transform: scale(2.5);
+        }
+
+        .cursor-hover .cursor-outline {
+            transform: scale(1.5);
+        }
+
+        .cursor-hidden .cursor-dot,
+        .cursor-hidden .cursor-outline {
+            opacity: 0;
+        }
+    </style>
+    <!-- Add required libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MorphSVGPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
+</head>
+<body class="bg-white text-gray-900 selection:bg-gray-200 transition-colors duration-300" style="cursor: none;">
+    <!-- Code Rain Background -->
+    <div class="code-rain" id="codeRain"></div>
+    <div class="code-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100 transition-colors duration-300" x-data="{ isOpen: false }">
+        <div class="max-w-5xl mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-lg tracking-tight">portfolio</a>
+                
+                <!-- Desktop menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="about.html" class="tracking-tight hover:text-gray-600 transition-colors">about</a>
+                    <a href="contact.html" class="tracking-tight hover:text-gray-600 transition-colors">contact</a>
+                    <!-- Theme Toggle -->
+                    <button @click="darkMode = !darkMode" class="theme-toggle" aria-label="Toggle Dark Mode">
+                        <span class="theme-toggle-circle"></span>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <!-- Theme Toggle for Mobile -->
+                    <button @click="darkMode = !darkMode" class="theme-toggle" aria-label="Toggle Dark Mode">
+                        <span class="theme-toggle-circle"></span>
+                    </button>
+                    <button @click="isOpen = !isOpen" class="focus:outline-none">
+                        <svg x-show="!isOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg x-show="isOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div x-show="isOpen" class="md:hidden mt-4" @click.away="isOpen = false">
+                <div class="flex flex-col space-y-4 py-4">
+                    <a href="about.html" class="tracking-tight hover:text-gray-600 transition-colors">about</a>
+                    <a href="contact.html" class="tracking-tight hover:text-gray-600 transition-colors">contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen">
+        <!-- Background Animation -->
+        <div class="fixed inset-0 -z-10">
+            <div class="absolute w-96 h-96 bg-gray-100 rounded-full -top-20 -left-20 animate-float opacity-20"></div>
+            <div class="absolute w-96 h-96 bg-gray-100 rounded-full -bottom-20 -right-20 animate-float opacity-20" style="animation-delay: -3s;"></div>
+        </div>
+
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="max-w-5xl mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-light mb-8 tracking-tight animate-slide-down">
+                    hello, i'm <span class="animate-wave inline-block">👋</span> gowtham
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 mb-12 tracking-tight animate-slide-up" style="animation-delay: 0.3s;">
+                    quality assurance engineer & test automation specialist
+                </p>
+                
+                <!-- Download Resume Button -->
+                <div class="animate-slide-up" style="animation-delay: 0.6s;">
+                    <button onclick="handleDownload(this)" class="minimal-button">
+                        <span class="button-text">download resume</span>
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l5 5 5-5M12 4v17" />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+
+                <script>
+                    function handleDownload(button) {
+                        // Create temporary link to download file
+                        const link = document.createElement('a');
+                        link.href = 'assets/resume.pdf';  // Path to your resume in assets directory
+                        link.download = 'Gowtham_Resume.pdf';  // Custom name for downloaded file
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+
+                        // Update button state
+                        button.classList.add('downloaded');
+                        const buttonText = button.querySelector('.button-text');
+                        const icon = button.querySelector('.icon');
+                        buttonText.textContent = 'downloaded';
+                        icon.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" />
+                            </svg>
+                        `;
+
+                        // Reset button after 3 seconds
+                        setTimeout(() => {
+                            button.classList.remove('downloaded');
+                            buttonText.textContent = 'download resume';
+                            icon.innerHTML = `
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l5 5 5-5M12 4v17" />
+                                </svg>
+                            `;
+                        }, 3000);
+                    }
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Programming language snippets
+        const codeSnippets = [
+            // JavaScript/TypeScript
+            'function getData() {',
+            'const api = async () => {',
+            'export class User {',
+            'constructor() {',
+            'Promise.all([',
+            'try { await fetch(',
+            'return new Map();',
+            'const [a, b] = arr;',
+            'interface IUser {',
+            'type Response<T> = {',
+            'namespace Auth {',
+            'private static readonly',
+            'protected override',
+            'implements IService',
+            'abstract class Base',
+            
+            // Python
+            'def __init__(self):',
+            'async def fetch():',
+            'class Neural:',
+            'with open(file):',
+            'if __name__ == "__main__":',
+            'except Exception as e:',
+            '@dataclass',
+            'from typing import List',
+            'import numpy as np',
+            'def decorator(func):',
+            'yield from generator',
+            'async with session:',
+            'lambda x: x * 2',
+            
+            // Java
+            'public class Main {',
+            'private static void',
+            '@Override',
+            'public static void main',
+            'extends AbstractClass',
+            'implements Interface',
+            'synchronized void',
+            'final String name',
+            'ArrayList<String>',
+            
+            // C++
+            'template<typename T>',
+            'std::vector<int>',
+            'namespace std {',
+            'virtual void run()',
+            '#include <iostream>',
+            'class Vector {',
+            'void push_back(',
+            'const int& ref',
+            'static_cast<int>',
+            
+            // Rust
+            'fn main() -> Result',
+            'pub struct Data {',
+            'impl Display for',
+            'let mut vector =',
+            'match result {',
+            '#[derive(Debug)]',
+            'use std::io::*',
+            
+            // Go
+            'func main() {',
+            'type Interface',
+            'struct Data struct',
+            'go routine() {',
+            'chan <- message',
+            'defer cleanup()',
+            'package main',
+            
+            // Ruby
+            'def initialize',
+            'class << self',
+            'module Helper',
+            'attr_accessor',
+            'require_relative',
+            
+            // PHP
+            'public function',
+            'namespace App\\',
+            'use Illuminate\\',
+            '$this->method(',
+            'protected $var',
+            
+            // SQL
+            'SELECT * FROM users',
+            'JOIN orders ON',
+            'WHERE status = 1',
+            'GROUP BY category',
+            'HAVING count(*) >',
+            'ORDER BY date DESC',
+            'CREATE TABLE IF',
+            'INSERT INTO table',
+            'UPDATE users SET',
+            
+            // React/Vue
+            'useState<string>(',
+            'useEffect(() => {',
+            'const [state, setState]',
+            '<Component prop={',
+            'ref={elementRef}',
+            '@click="handler"',
+            'v-for="item in',
+            'computed: {',
+            
+            // Docker/DevOps
+            'FROM node:latest',
+            'COPY . /app/',
+            'RUN npm install',
+            'EXPOSE 3000',
+            'docker-compose up',
+            'kubectl apply -f',
+            
+            // GraphQL
+            'type Query {',
+            'input UserInput',
+            'mutation create',
+            'fragment UserParts',
+            
+            // Common Patterns
+            'try { const data',
+            'catch (error) {',
+            'finally {',
+            'return result;',
+            'await Promise.',
+            'import { useState',
+            'export default',
+            'module.exports',
+            'function* generator',
+            'async function*',
+            'class Factory<T>',
+            'interface Builder',
+            'abstract factory'
+        ];
+
+        // Create code rain effect with more columns
+        function createCodeRain() {
+            const container = document.getElementById('codeRain');
+            const width = window.innerWidth;
+            const columns = Math.floor(width / 200); // More columns, closer together
+
+            // Clear existing content
+            container.innerHTML = '';
+
+            // Create columns
+            for (let i = 0; i < columns; i++) {
+                const column = document.createElement('div');
+                column.className = 'code-column';
+                column.style.left = (i * 200 + Math.random() * 30) + 'px';
+                
+                // Create a random sequence of code snippets
+                let html = '';
+                const snippetCount = 3 + Math.floor(Math.random() * 3); // 3-5 snippets per column
+                for (let j = 0; j < snippetCount; j++) {
+                    const snippet = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                    html += snippet + '\n\n';
+                }
+                column.textContent = html;
+                
+                // Randomize animation duration and delay
+                const duration = 20 + Math.random() * 15; // 20-35 seconds
+                const delay = -Math.random() * 30;
+                column.style.animationDuration = `${duration}s`;
+                column.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(column);
+            }
+        }
+
+        // Initialize code rain
+        createCodeRain();
+
+        // Recreate on window resize with debounce
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(createCodeRain, 300);
+        });
+    </script>
+    <script src="assets/js/cursor.js"></script>
+</body>
+</html>

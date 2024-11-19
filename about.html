@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gowtham Portfolio | About</title>
+    <link rel="icon" type="image/jpg" href="assets/profile.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        .code-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background-color: transparent;
+            overflow: hidden;
+        }
+
+        .code-column {
+            position: absolute;
+            width: max-content;
+            padding: 0 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            white-space: pre;
+            animation: codeRain linear infinite;
+            transform: translateY(-100%);
+            line-height: 1.4;
+        }
+
+        .code-column:nth-child(3n) {
+            color: #15803d;
+            opacity: 0.85;
+            animation-duration: 25s;
+        }
+
+        .code-column:nth-child(3n+1) {
+            color: #15803d;
+            opacity: 0.7;
+            animation-duration: 30s;
+        }
+
+        .code-column:nth-child(3n+2) {
+            color: #15803d;
+            opacity: 0.55;
+            animation-duration: 35s;
+        }
+
+        .dark .code-column:nth-child(3n) {
+            opacity: 0.8;
+            color: #16a34a;
+        }
+
+        .dark .code-column:nth-child(3n+1) {
+            opacity: 0.65;
+            color: #16a34a;
+        }
+
+        .dark .code-column:nth-child(3n+2) {
+            opacity: 0.5;
+            color: #16a34a;
+        }
+
+        .code-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background: radial-gradient(circle at center, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.95) 40%
+            );
+        }
+
+        .dark .code-bg {
+            background: radial-gradient(circle at center, 
+                transparent 0%, 
+                rgba(17, 24, 39, 0.95) 40%
+            );
+        }
+
+        @keyframes codeRain {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Experience Timeline Styles */
+        .experience-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #15803d 0%, #16a34a 100%);
+            transform: translateX(-50%);
+        }
+
+        .timeline-line::before,
+        .timeline-line::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            background: #16a34a;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px rgba(22, 163, 74, 0.5);
+        }
+
+        .timeline-line::before {
+            top: 0;
+        }
+
+        .timeline-line::after {
+            bottom: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 3rem 0;
+            width: 50%;
+            padding: 0 3rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #16a34a;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(22, 163, 74, 0.4);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-content {
+            position: relative;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(22, 163, 74, 0.2);
+            border-radius: 8px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(22, 163, 74, 0.15);
+            border-color: rgba(22, 163, 74, 0.4);
+        }
+
+        .timeline-date {
+            color: #16a34a;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(22, 163, 74, 0.3);
+        }
+
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .timeline-description {
+            font-size: 0.875rem;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        .dark .timeline-content {
+            background: rgba(31, 41, 55, 0.7);
+            border-color: rgba(22, 163, 74, 0.3);
+        }
+
+        .dark .timeline-title {
+            color: #f3f4f6;
+        }
+
+        .dark .timeline-description {
+            color: #9ca3af;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 1rem;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                text-align: left !important;
+                padding-left: 3rem;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: calc(1rem - 6px);
+            }
+        }
+
+        /* Education Section Styles */
+        .education-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .education-card {
+            position: relative;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(22, 163, 74, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .education-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #15803d, #16a34a);
+            opacity: 0.8;
+        }
+
+        .education-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(22, 163, 74, 0.4);
+            box-shadow: 0 8px 25px rgba(22, 163, 74, 0.15);
+        }
+
+        .education-card:hover::before {
+            opacity: 1;
+        }
+
+        .degree-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .college-name {
+            font-size: 1rem;
+            color: #16a34a;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(22, 163, 74, 0.3);
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
+
+        .location svg {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .dark .education-card {
+            background: rgba(31, 41, 55, 0.7);
+            border-color: rgba(22, 163, 74, 0.3);
+        }
+
+        .dark .degree-title {
+            color: #f3f4f6;
+        }
+
+        .dark .location {
+            color: #9ca3af;
+        }
+
+        @media (min-width: 768px) {
+            .education-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Profile Image Styles */
+        .profile-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+            margin-bottom: 2rem;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid rgba(22, 163, 74, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .profile-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            pointer-events: none;
+            box-shadow: 0 0 25px rgba(22, 163, 74, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .profile-container:hover .profile-glow {
+            box-shadow: 0 0 30px rgba(22, 163, 74, 0.4);
+        }
+
+        .profile-container:hover .profile-image {
+            transform: scale(1.02);
+            border-color: rgba(22, 163, 74, 0.5);
+        }
+
+        .profile-frame {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 1px solid rgba(22, 163, 74, 0.3);
+            border-radius: 14px;
+            pointer-events: none;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 95% 100%, 95% 95%, 5% 95%, 5% 5%, 95% 5%, 95% 95%, 100% 95%, 100% 100%, 0% 100%);
+        }
+
+        /* Skills Section Styles */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-item {
+            position: relative;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(22, 163, 74, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(22, 163, 74, 0.4);
+            box-shadow: 0 8px 25px rgba(22, 163, 74, 0.15);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #16a34a;
+            text-shadow: 0 0 10px rgba(22, 163, 74, 0.3);
+        }
+
+        .skill-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .dark .skill-item {
+            background: rgba(31, 41, 55, 0.7);
+        }
+
+        .dark .skill-name {
+            color: #f3f4f6;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                    },
+                    transitionDuration: {
+                        '2000': '2000ms',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 1s ease-out forwards',
+                        'slide-down': 'slideDown 1s ease-out forwards',
+                        'scale-in': 'scaleIn 1.5s ease-out forwards',
+                        'rotate-in': 'rotateIn 1s ease-out forwards',
+                        'wave': 'wave 2.5s ease-in-out infinite',
+                        'bounce-slow': 'bounce 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(100px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-100px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        rotateIn: {
+                            '0%': { transform: 'rotate(-180deg) scale(0)', opacity: '0' },
+                            '100%': { transform: 'rotate(0) scale(1)', opacity: '1' },
+                        },
+                        wave: {
+                            '0%': { transform: 'rotate(0.0deg)' },
+                            '10%': { transform: 'rotate(14.0deg)' },
+                            '20%': { transform: 'rotate(-8.0deg)' },
+                            '30%': { transform: 'rotate(14.0deg)' },
+                            '40%': { transform: 'rotate(-4.0deg)' },
+                            '50%': { transform: 'rotate(10.0deg)' },
+                            '60%': { transform: 'rotate(0.0deg)' },
+                            '100%': { transform: 'rotate(0.0deg)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/cursor.css">
+</head>
+<body class="bg-white text-gray-900 selection:bg-gray-200">
+    <!-- Code Rain Background -->
+    <div id="codeRain" class="code-rain"></div>
+    <div class="code-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100" x-data="{ isOpen: false }">
+        <div class="max-w-5xl mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-xl tracking-tight hover:text-gray-600 transition-colors duration-300">
+                    portfolio
+                </a>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-12">
+                    <a href="index.html" class="tracking-tight hover:text-gray-600 transition-colors duration-300">home</a>
+                    <a href="about.html" class="tracking-tight hover:text-gray-600 transition-colors duration-300">about</a>
+                    <a href="contact.html" class="tracking-tight hover:text-gray-600 transition-colors duration-300">contact</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button @click="isOpen = !isOpen" class="md:hidden hover:text-gray-600 transition-colors duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div class="md:hidden" x-show="isOpen" @click.away="isOpen = false"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-2"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-2">
+                <div class="pt-4 pb-3 space-y-3">
+                    <a href="index.html" class="block hover:text-gray-600 transition-colors duration-300">home</a>
+                    <a href="about.html" class="block hover:text-gray-600 transition-colors duration-300">about</a>
+                    <a href="contact.html" class="block hover:text-gray-600 transition-colors duration-300">contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="min-h-screen pt-24">
+        <div class="max-w-5xl mx-auto px-6 py-16">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-24 opacity-0 animate-[fadeIn_1s_ease-in_forwards]">
+                    <h1 class="text-4xl md:text-5xl font-light mb-4 tracking-tight">gowtham</h1>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    <div class="opacity-0 animate-[fadeIn_1s_ease-in_0.3s_forwards]">
+                        <div class="profile-container" data-aos="fade-up">
+                            <img src="assets/profile.jpg" alt="Profile Picture" class="profile-image">
+                            <div class="profile-glow"></div>
+                            <div class="profile-frame"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-12 opacity-0 animate-[fadeIn_1s_ease-in_0.6s_forwards]">
+                        <div>
+                            <h2 class="text-xl mb-4 tracking-tight">hello</h2>
+                            <p class="text-gray-600 tracking-tight leading-relaxed">
+                                I'm a Quality Assurance Engineer specializing in test automation and software quality. With expertise in tools like Selenium and Tricentis Tosca, I ensure robust, reliable software through comprehensive testing strategies and automation frameworks.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h2 class="text-xl mb-6 tracking-tight">skills</h2>
+                            <div class="skills-grid">
+                                <!-- Selenium -->
+                                <div class="skill-item">
+                                    <div class="skill-icon">
+                                        <img src="https://www.selenium.dev/images/selenium_logo_square_green.png" alt="Selenium" class="w-8 h-8">
+                                    </div>
+                                    <div class="skill-name">Selenium</div>
+                                </div>
+                                
+                                <!-- Java -->
+                                <div class="skill-item">
+                                    <div class="skill-icon">
+                                        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="Java" class="w-8 h-8">
+                                    </div>
+                                    <div class="skill-name">Java</div>
+                                </div>
+                                
+                                <!-- Tricentis Tosca -->
+                                <div class="skill-item">
+                                    <div class="skill-icon">
+                                        <img src="assets/tricentis-logo-2022.png" alt="Tricentis Tosca" class="w-16 h-16 object-contain">
+                                    </div>
+                                    <div class="skill-name">Tricentis Tosca</div>
+                                </div>
+                                
+                                <!-- Git -->
+                                <div class="skill-item">
+                                    <div class="skill-icon">
+                                        <img src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" alt="Git" class="w-8 h-8">
+                                    </div>
+                                    <div class="skill-name">Git</div>
+                                </div>
+                                
+                                <!-- CI/CD -->
+                                <div class="skill-item">
+                                    <div class="skill-icon">
+                                        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" alt="CI/CD" class="w-8 h-8">
+                                    </div>
+                                    <div class="skill-name">CI/CD</div>
+                                </div>
+                                
+                                <!-- Cucumber BDD -->
+                                <div class="skill-item">
+                                    <div class="skill-icon">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cucumber/cucumber-plain.svg" alt="Cucumber BDD" class="w-8 h-8">
+                                    </div>
+                                    <div class="skill-name">Cucumber BDD</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Certifications -->
+                        <h2 class="text-xl mb-6 mt-12 tracking-tight">certifications</h2>
+                        <div class="skills-grid">
+                            <!-- ISTQB Foundation -->
+                            <div class="skill-item">
+                                <div class="skill-icon bg-white dark:bg-gray-800 p-2 rounded-lg">
+                                    <img src="assets/istqb-logo.svg" alt="ISTQB" class="w-16 h-16 object-contain">
+                                </div>
+                                <div class="skill-name">ISTQB Foundation Level</div>
+                            </div>
+                            <!-- ISTQB Agile -->
+                            <div class="skill-item">
+                                <div class="skill-icon bg-white dark:bg-gray-800 p-2 rounded-lg">
+                                    <img src="assets/istqb-logo.svg" alt="ISTQB" class="w-16 h-16 object-contain">
+                                </div>
+                                <div class="skill-name">ISTQB Agile Tester</div>
+                            </div>
+                            <!-- Tosca Level 1 -->
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="assets/tricentis-logo-2022.png" alt="Tricentis Tosca" class="w-16 h-16 object-contain">
+                                </div>
+                                <div class="skill-name">Tricentis Tosca Automation Specialist Level 1</div>
+                            </div>
+                            <!-- Tosca Level 2 -->
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="assets/tricentis-logo-2022.png" alt="Tricentis Tosca" class="w-16 h-16 object-contain">
+                                </div>
+                                <div class="skill-name">Tricentis Tosca Automation Specialist Level 2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="min-h-screen pt-24">
+        <div class="max-w-5xl mx-auto px-6 py-16">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-24 opacity-0 animate-[fadeIn_1s_ease-in_forwards]">
+                    <h2 class="text-3xl font-light mb-12 tracking-tight">experience</h2>
+                </div>
+                
+                <div class="experience-timeline">
+                    <div class="timeline-line"></div>
+                    
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2021 - Present</div>
+                            <h3 class="timeline-title">Automation Tester</h3>
+                            <h4 class="text-gray-600 dark:text-gray-400 text-sm mb-2">Infosys Ltd</h4>
+                            <p class="timeline-description">
+                                • Developed and maintained automated test frameworks using industry-standard tools<br>
+                                • Implemented end-to-end test automation solutions for web applications<br>
+                                • Collaborated with development teams to ensure software quality<br>
+                                • Performed regression testing and continuous integration testing<br>
+                                • Created detailed test reports and documentation
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="min-h-screen pt-24">
+        <div class="max-w-5xl mx-auto px-6 py-16">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl font-light mb-12 text-center tracking-tight">education</h2>
+                <div class="education-grid">
+                    <!-- Master's Degree -->
+                    <div class="education-card" data-aos="fade-up">
+                        <h3 class="degree-title">Master of Computer Applications (MCA)</h3>
+                        <p class="college-name">Jain College</p>
+                        <p class="location">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                            </svg>
+                            Bangalore
+                        </p>
+                    </div>
+
+                    <!-- Bachelor's Degree -->
+                    <div class="education-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="degree-title">BSc Electronics and Communication Systems</h3>
+                        <p class="college-name">Sri Krishna Arts and Science College</p>
+                        <p class="location">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                            </svg>
+                            Coimbatore
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <script>
+        // Set current year for copyright
+        document.getElementById('about-year').textContent = new Date().getFullYear();
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <script>
+        // Programming language snippets
+        const codeSnippets = [
+            // JavaScript/TypeScript
+            'function getData() {',
+            'const api = async () => {',
+            'export class User {',
+            'constructor() {',
+            'Promise.all([',
+            'try { await fetch(',
+            'return new Map();',
+            'const [a, b] = arr;',
+            'interface IUser {',
+            'type Response<T> = {',
+            'namespace Auth {',
+            'private static readonly',
+            'protected override',
+            'implements IService',
+            'abstract class Base',
+            
+            // Python
+            'def __init__(self):',
+            'async def fetch():',
+            'class Neural:',
+            'with open(file):',
+            'if __name__ == "__main__":',
+            'except Exception as e:',
+            '@dataclass',
+            'from typing import List',
+            'import numpy as np',
+            'def decorator(func):',
+            'yield from generator',
+            'async with session:',
+            'lambda x: x * 2',
+            
+            // Java
+            'public class Main {',
+            'private static void',
+            '@Override',
+            'public static void main',
+            'extends AbstractClass',
+            'implements Interface',
+            'synchronized void',
+            'final String name',
+            'ArrayList<String>',
+            
+            // C++
+            'template<typename T>',
+            'std::vector<int>',
+            'namespace std {',
+            'virtual void run()',
+            '#include <iostream>',
+            'class Vector {',
+            'void push_back(',
+            'const int& ref',
+            'static_cast<int>',
+            
+            // Rust
+            'fn main() -> Result',
+            'pub struct Data {',
+            'impl Display for',
+            'let mut vector =',
+            'match result {',
+            '#[derive(Debug)]',
+            'use std::io::*',
+            
+            // Go
+            'func main() {',
+            'type Interface',
+            'struct Data struct',
+            'go routine() {',
+            'chan <- message',
+            'defer cleanup()',
+            'package main',
+            
+            // Ruby
+            'def initialize',
+            'class << self',
+            'module Helper',
+            'attr_accessor',
+            'require_relative',
+            
+            // PHP
+            'public function',
+            'namespace App\\',
+            'use Illuminate\\',
+            '$this->method(',
+            'protected $var',
+            
+            // SQL
+            'SELECT * FROM users',
+            'JOIN orders ON',
+            'WHERE status = 1',
+            'GROUP BY category',
+            'HAVING count(*) >',
+            'ORDER BY date DESC',
+            'CREATE TABLE IF',
+            'INSERT INTO table',
+            'UPDATE users SET',
+            
+            // React/Vue
+            'useState<string>(',
+            'useEffect(() => {',
+            'const [state, setState]',
+            '<Component prop={',
+            'ref={elementRef}',
+            '@click="handler"',
+            'v-for="item in',
+            'computed: {',
+            
+            // Docker/DevOps
+            'FROM node:latest',
+            'COPY . /app/',
+            'RUN npm install',
+            'EXPOSE 3000',
+            'docker-compose up',
+            'kubectl apply -f',
+            
+            // GraphQL
+            'type Query {',
+            'input UserInput',
+            'mutation create',
+            'fragment UserParts',
+            
+            // Common Patterns
+            'try { const data',
+            'catch (error) {',
+            'finally {',
+            'return result;',
+            'await Promise.',
+            'import { useState',
+            'export default',
+            'module.exports',
+            'function* generator',
+            'async function*',
+            'class Factory<T>',
+            'interface Builder',
+            'abstract factory'
+        ];
+
+        // Create code rain effect with more columns
+        function createCodeRain() {
+            const container = document.getElementById('codeRain');
+            const width = window.innerWidth;
+            const columns = Math.floor(width / 200); // More columns, closer together
+
+            // Clear existing content
+            container.innerHTML = '';
+
+            // Create columns
+            for (let i = 0; i < columns; i++) {
+                const column = document.createElement('div');
+                column.className = 'code-column';
+                column.style.left = (i * 200 + Math.random() * 30) + 'px';
+                
+                // Create a random sequence of code snippets
+                let html = '';
+                const snippetCount = 3 + Math.floor(Math.random() * 3); // 3-5 snippets per column
+                for (let j = 0; j < snippetCount; j++) {
+                    const snippet = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                    html += snippet + '\n\n';
+                }
+                column.textContent = html;
+                
+                // Randomize animation duration and delay
+                const duration = 20 + Math.random() * 15; // 20-35 seconds
+                const delay = -Math.random() * 30;
+                column.style.animationDuration = `${duration}s`;
+                column.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(column);
+            }
+        }
+
+        // Initialize code rain
+        createCodeRain();
+
+        // Recreate on window resize with debounce
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(createCodeRain, 300);
+        });
+    </script>
+
+    <script>
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate timeline items
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach((item, index) => {
+            gsap.from(item, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                    end: "top 50%",
+                    toggleActions: "play none none reverse",
+                    markers: false
+                }
+            });
+        });
+
+        // Animate timeline line
+        gsap.from('.timeline-line', {
+            height: 0,
+            duration: 2,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: '.experience-timeline',
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse",
+                scrub: 1,
+                markers: false
+            }
+        });
+    </script>
+    <script src="assets/js/cursor.js"></script>
+</body>
+</html>

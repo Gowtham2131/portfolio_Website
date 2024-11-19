@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gowtham Portfolio | Contact</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/cursor.css">
+    <link rel="icon" type="image/jpg" href="assets/profile.jpg">
+    <style>
+        .code-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background-color: transparent;
+            overflow: hidden;
+        }
+
+        .code-column {
+            position: absolute;
+            width: max-content;
+            padding: 0 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            white-space: pre;
+            animation: codeRain linear infinite;
+            transform: translateY(-100%);
+            line-height: 1.4;
+        }
+
+        .code-column:nth-child(3n) {
+            color: #15803d;
+            opacity: 0.85;
+            animation-duration: 25s;
+        }
+
+        .code-column:nth-child(3n+1) {
+            color: #15803d;
+            opacity: 0.7;
+            animation-duration: 30s;
+        }
+
+        .code-column:nth-child(3n+2) {
+            color: #15803d;
+            opacity: 0.55;
+            animation-duration: 35s;
+        }
+
+        .dark .code-column:nth-child(3n) {
+            opacity: 0.8;
+            color: #16a34a;
+        }
+
+        .dark .code-column:nth-child(3n+1) {
+            opacity: 0.65;
+            color: #16a34a;
+        }
+
+        .dark .code-column:nth-child(3n+2) {
+            opacity: 0.5;
+            color: #16a34a;
+        }
+
+        .code-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background: radial-gradient(circle at center, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.95) 40%
+            );
+        }
+
+        .dark .code-bg {
+            background: radial-gradient(circle at center, 
+                transparent 0%, 
+                rgba(17, 24, 39, 0.95) 40%
+            );
+        }
+
+        @keyframes codeRain {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                    },
+                    transitionDuration: {
+                        '2000': '2000ms',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 1s ease-out forwards',
+                        'slide-down': 'slideDown 1s ease-out forwards',
+                        'scale-in': 'scaleIn 1.5s ease-out forwards',
+                        'rotate-in': 'rotateIn 1s ease-out forwards',
+                        'wave': 'wave 2.5s ease-in-out infinite',
+                        'bounce-slow': 'bounce 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(100px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-100px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        rotateIn: {
+                            '0%': { transform: 'rotate(-180deg) scale(0)', opacity: '0' },
+                            '100%': { transform: 'rotate(0) scale(1)', opacity: '1' },
+                        },
+                        wave: {
+                            '0%': { transform: 'rotate(0.0deg)' },
+                            '10%': { transform: 'rotate(14.0deg)' },
+                            '20%': { transform: 'rotate(-8.0deg)' },
+                            '30%': { transform: 'rotate(14.0deg)' },
+                            '40%': { transform: 'rotate(-4.0deg)' },
+                            '50%': { transform: 'rotate(10.0deg)' },
+                            '60%': { transform: 'rotate(0.0deg)' },
+                            '100%': { transform: 'rotate(0.0deg)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&display=swap">
+</head>
+<body class="bg-white text-gray-900 selection:bg-gray-200">
+    <!-- Code Rain Background -->
+    <div id="codeRain" class="code-rain"></div>
+    <div class="code-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100" x-data="{ isOpen: false }">
+        <div class="max-w-5xl mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-xl tracking-tight hover:text-gray-600 transition-colors duration-300">
+                    portfolio
+                </a>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-12">
+                    <a href="index.html" class="tracking-tight hover:text-gray-600 transition-colors duration-300">home</a>
+                    <a href="about.html" class="tracking-tight hover:text-gray-600 transition-colors duration-300">about</a>
+                    <a href="contact.html" class="tracking-tight hover:text-gray-600 transition-colors duration-300">contact</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button @click="isOpen = !isOpen" class="md:hidden hover:text-gray-600 transition-colors duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div class="md:hidden" x-show="isOpen" @click.away="isOpen = false"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-2"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-2">
+                <div class="pt-4 pb-3 space-y-3">
+                    <a href="index.html" class="block hover:text-gray-600 transition-colors duration-300">home</a>
+                    <a href="about.html" class="block hover:text-gray-600 transition-colors duration-300">about</a>
+                    <a href="contact.html" class="block hover:text-gray-600 transition-colors duration-300">contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="min-h-screen pt-24">
+        <div class="max-w-5xl mx-auto px-6 py-16">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-24 opacity-0 animate-[fadeIn_1s_ease-in_forwards]">
+                    <h1 class="text-4xl md:text-5xl font-light mb-4 tracking-tight">contact</h1>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-16">
+                    <!-- Contact Form -->
+                    <div class="opacity-0 animate-[fadeIn_1s_ease-in_0.3s_forwards]">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 backdrop-blur-sm bg-opacity-50">
+                            <form action="https://formsubmit.co/pvgowtham9677@gmail.com" method="POST" id="contact-form" class="space-y-6">
+                                <!-- Honeypot -->
+                                <input type="text" name="_honey" style="display: none;">
+                                <!-- Disable Captcha -->
+                                <input type="hidden" name="_captcha" value="false">
+                                <!-- Success Page -->
+                                <input type="hidden" name="_next" value="thanks.html">
+                                <!-- Subject -->
+                                <input type="hidden" name="_subject" value="New Portfolio Contact Message!">
+                                <!-- Template -->
+                                <input type="hidden" name="_template" value="table">
+                                <!-- Email -->
+                                <input type="hidden" name="email" value="pvgowtham9677@gmail.com">
+
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                                    <input type="text" name="name" id="name" required 
+                                        class="mt-1 block w-full rounded-lg border-2 border-gray-200 dark:border-gray-600 
+                                        px-4 py-3 bg-white dark:bg-gray-700 
+                                        text-gray-900 dark:text-white placeholder-gray-400
+                                        focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:ring-opacity-20
+                                        transition-colors duration-200 ease-in-out
+                                        hover:border-gray-300 dark:hover:border-gray-500"
+                                        placeholder="Enter your name">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+                                    <input type="email" name="email" id="email" required 
+                                        class="mt-1 block w-full rounded-lg border-2 border-gray-200 dark:border-gray-600 
+                                        px-4 py-3 bg-white dark:bg-gray-700 
+                                        text-gray-900 dark:text-white placeholder-gray-400
+                                        focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:ring-opacity-20
+                                        transition-colors duration-200 ease-in-out
+                                        hover:border-gray-300 dark:hover:border-gray-500"
+                                        placeholder="Enter your email">
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
+                                    <textarea name="message" id="message" rows="5" required 
+                                        class="mt-1 block w-full rounded-lg border-2 border-gray-200 dark:border-gray-600 
+                                        px-4 py-3 bg-white dark:bg-gray-700 
+                                        text-gray-900 dark:text-white placeholder-gray-400
+                                        focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500 focus:ring-opacity-20
+                                        transition-colors duration-200 ease-in-out
+                                        hover:border-gray-300 dark:hover:border-gray-500
+                                        resize-none"
+                                        placeholder="Write your message here..."></textarea>
+                                </div>
+                                <div class="text-right">
+                                    <button type="submit" id="submit-btn" 
+                                        class="inline-flex items-center px-6 py-3 border border-transparent 
+                                        text-base font-medium rounded-lg shadow-sm text-white 
+                                        bg-green-600 hover:bg-green-700 
+                                        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 
+                                        transition-all duration-200 ease-in-out
+                                        transform hover:scale-105">
+                                        Send Message
+                                    </button>
+                                </div>
+                            </form>
+                            <div id="success-message" class="hidden mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                                Message sent successfully! I'll get back to you soon.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="space-y-12 opacity-0 animate-[fadeIn_1s_ease-in_0.6s_forwards]">
+                        <div>
+                            <h2 class="text-xl mb-4 tracking-tight">contact info</h2>
+                            <div class="space-y-4">
+                                <a href="tel:+919677959748" class="flex items-center gap-3 text-gray-600 hover:text-gray-900 dark:hover:text-gray-300 transition-colors duration-200">
+                                    <i class="fas fa-phone text-xl"></i>
+                                    <span>+91 9677959748</span>
+                                </a>
+                                <a href="mailto:pvgowtham9677@gmail.com" class="flex items-center gap-3 text-gray-600 hover:text-gray-900 dark:hover:text-gray-300 transition-colors duration-200">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                    <span>pvgowtham9677@gmail.com</span>
+                                </a>
+                                <div class="flex items-center gap-3 text-gray-600">
+                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                    <span>Hosur, Tamil Nadu, India</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h2 class="text-xl mb-4 tracking-tight">social</h2>
+                            <div class="space-y-4">
+                                <a href="https://www.linkedin.com/in/gowtham-p021/" target="_blank" rel="noopener noreferrer" 
+                                    class="flex items-center gap-3 text-gray-600 hover:text-[#0A66C2] transition-colors duration-200">
+                                    <i class="fab fa-linkedin text-xl"></i>
+                                    <span>LinkedIn</span>
+                                </a>
+                                <a href="https://github.com/Gowtham2131" target="_blank" rel="noopener noreferrer" 
+                                    class="flex items-center gap-3 text-gray-600 hover:text-[#333] dark:hover:text-white transition-colors duration-200">
+                                    <i class="fab fa-github text-xl"></i>
+                                    <span>GitHub</span>
+                                </a>
+                                <a href="#" class="flex items-center gap-3 text-gray-600 hover:text-gray-900 transition-colors tracking-tight">
+                                    <i class="fab fa-twitter text-xl"></i>
+                                    <span>Twitter</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Set current year for copyright
+        document.getElementById('contact-year').textContent = new Date().getFullYear();
+    </script>
+
+    <script>
+        // Programming language snippets
+        const codeSnippets = [
+            // JavaScript/TypeScript
+            'function getData() {',
+            'const api = async () => {',
+            'export class User {',
+            'constructor() {',
+            'Promise.all([',
+            'try { await fetch(',
+            'return new Map();',
+            'const [a, b] = arr;',
+            'interface IUser {',
+            'type Response<T> = {',
+            'namespace Auth {',
+            'private static readonly',
+            'protected override',
+            'implements IService',
+            'abstract class Base',
+            
+            // Python
+            'def __init__(self):',
+            'async def fetch():',
+            'class Neural:',
+            'with open(file):',
+            'if __name__ == "__main__":',
+            'except Exception as e:',
+            '@dataclass',
+            'from typing import List',
+            'import numpy as np',
+            'def decorator(func):',
+            'yield from generator',
+            'async with session:',
+            'lambda x: x * 2',
+            
+            // Java
+            'public class Main {',
+            'private static void',
+            '@Override',
+            'public static void main',
+            'extends AbstractClass',
+            'implements Interface',
+            'synchronized void',
+            'final String name',
+            'ArrayList<String>',
+            
+            // C++
+            'template<typename T>',
+            'std::vector<int>',
+            'namespace std {',
+            'virtual void run()',
+            '#include <iostream>',
+            'class Vector {',
+            'void push_back(',
+            'const int& ref',
+            'static_cast<int>',
+            
+            // Rust
+            'fn main() -> Result',
+            'pub struct Data {',
+            'impl Display for',
+            'let mut vector =',
+            'match result {',
+            '#[derive(Debug)]',
+            'use std::io::*',
+            
+            // Go
+            'func main() {',
+            'type Interface',
+            'struct Data struct',
+            'go routine() {',
+            'chan <- message',
+            'defer cleanup()',
+            'package main',
+            
+            // Ruby
+            'def initialize',
+            'class << self',
+            'module Helper',
+            'attr_accessor',
+            'require_relative',
+            
+            // PHP
+            'public function',
+            'namespace App\\',
+            'use Illuminate\\',
+            '$this->method(',
+            'protected $var',
+            
+            // SQL
+            'SELECT * FROM users',
+            'JOIN orders ON',
+            'WHERE status = 1',
+            'GROUP BY category',
+            'HAVING count(*) >',
+            'ORDER BY date DESC',
+            'CREATE TABLE IF',
+            'INSERT INTO table',
+            'UPDATE users SET',
+            
+            // React/Vue
+            'useState<string>(',
+            'useEffect(() => {',
+            'const [state, setState]',
+            '<Component prop={',
+            'ref={elementRef}',
+            '@click="handler"',
+            'v-for="item in',
+            'computed: {',
+            
+            // Docker/DevOps
+            'FROM node:latest',
+            'COPY . /app/',
+            'RUN npm install',
+            'EXPOSE 3000',
+            'docker-compose up',
+            'kubectl apply -f',
+            
+            // GraphQL
+            'type Query {',
+            'input UserInput',
+            'mutation create',
+            'fragment UserParts',
+            
+            // Common Patterns
+            'try { const data',
+            'catch (error) {',
+            'finally {',
+            'return result;',
+            'await Promise.',
+            'import { useState',
+            'export default',
+            'module.exports',
+            'function* generator',
+            'async function*',
+            'class Factory<T>',
+            'interface Builder',
+            'abstract factory'
+        ];
+
+        // Create code rain effect with more columns
+        function createCodeRain() {
+            const container = document.getElementById('codeRain');
+            const width = window.innerWidth;
+            const columns = Math.floor(width / 200); // More columns, closer together
+
+            // Clear existing content
+            container.innerHTML = '';
+
+            // Create columns
+            for (let i = 0; i < columns; i++) {
+                const column = document.createElement('div');
+                column.className = 'code-column';
+                column.style.left = (i * 200 + Math.random() * 30) + 'px';
+                
+                // Create a random sequence of code snippets
+                let html = '';
+                const snippetCount = 3 + Math.floor(Math.random() * 3); // 3-5 snippets per column
+                for (let j = 0; j < snippetCount; j++) {
+                    const snippet = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                    html += snippet + '\n\n';
+                }
+                column.textContent = html;
+                
+                // Randomize animation duration and delay
+                const duration = 20 + Math.random() * 15; // 20-35 seconds
+                const delay = -Math.random() * 30;
+                column.style.animationDuration = `${duration}s`;
+                column.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(column);
+            }
+        }
+
+        // Initialize code rain
+        createCodeRain();
+
+        // Recreate on window resize with debounce
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(createCodeRain, 300);
+        });
+    </script>
+    <script>
+        // Form submission handling
+        const form = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const successMsg = document.getElementById('success-message');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Sending...';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    form.reset();
+                    form.style.display = 'none';
+                    successMsg.classList.remove('hidden');
+                    setTimeout(() => {
+                        window.location.href = 'thanks.html';
+                    }, 2000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Sorry, there was an error sending your message. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Send Message';
+            }
+        });
+    </script>
+    <script src="assets/js/cursor.js"></script>
+</body>
+</html>
